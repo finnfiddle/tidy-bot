@@ -1,6 +1,6 @@
 import fs from "fs";
-import path from "path";
-import { execSync } from "child_process";
+// import path from "path";
+// import { execSync } from "child_process";
 import {
   loadConfig,
   getSourceFiles,
@@ -10,9 +10,9 @@ import {
   Config,
 } from "./lib";
 
-function git(cmd: string): void {
-  execSync(cmd, { stdio: "inherit" });
-}
+// function git(cmd: string): void {
+//   execSync(cmd, { stdio: "inherit" });
+// }
 
 const run = async (): Promise<void> => {
   const config: Config = loadConfig();
@@ -33,23 +33,23 @@ const run = async (): Promise<void> => {
 
   const reviewedContent = await reviewCode(openai, fileToReview, originalCode, config);
 
-  const branchName = `tidybot/${path.basename(fileToReview)}-${Date.now()}`;
-  const repo = process.env.GITHUB_REPOSITORY;
-  const token = process.env.GITHUB_TOKEN;
-  const remoteUrl = `https://${token}@github.com/${repo}.git`;
+  // const branchName = `tidybot/${path.basename(fileToReview)}-${Date.now()}`;
+  // const repo = process.env.GITHUB_REPOSITORY;
+  // const token = process.env.GITHUB_TOKEN;
+  // const remoteUrl = `https://${token}@github.com/${repo}.git`;
 
-  console.log(remoteUrl)
+  // console.log(remoteUrl)
 
-  git(`git checkout -b ${branchName}`);
+  // git(`git checkout -b ${branchName}`);
   if (reviewedContent) {
     fs.writeFileSync(fileToReview, reviewedContent.trim());
-    git(`git config user.name "tidybot"`);
-    git(`git config user.email "tidybot@users.noreply.github.com"`);
-    git(`git remote set-url origin ${remoteUrl}`);
-    git(`git add ${fileToReview}`);
-    git(`git commit -m "style: tidybot review for ${path.basename(fileToReview)}"`);
-    git(`git push origin ${branchName}`);
-    git(`gh pr create --title "TidyBot Review: ${path.basename(fileToReview)}" --body "Automated refactor and style cleanup by TidyBot." --base main`);
+    // git(`git config user.name "tidybot"`);
+    // git(`git config user.email "tidybot@users.noreply.github.com"`);
+    // git(`git remote set-url origin ${remoteUrl}`);
+    // git(`git add ${fileToReview}`);
+    // git(`git commit -m "style: tidybot review for ${path.basename(fileToReview)}"`);
+    // git(`git push origin ${branchName}`);
+    // git(`gh pr create --title "TidyBot Review: ${path.basename(fileToReview)}" --body "Automated refactor and style cleanup by TidyBot." --base main`);
   }
   
   return;

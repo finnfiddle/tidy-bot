@@ -9918,12 +9918,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const fs_1 = __importDefault(__nccwpck_require__(7147));
-const path_1 = __importDefault(__nccwpck_require__(1017));
-const child_process_1 = __nccwpck_require__(2081);
+// import path from "path";
+// import { execSync } from "child_process";
 const lib_1 = __nccwpck_require__(9730);
-function git(cmd) {
-    (0, child_process_1.execSync)(cmd, { stdio: "inherit" });
-}
+// function git(cmd: string): void {
+//   execSync(cmd, { stdio: "inherit" });
+// }
 const run = async () => {
     const config = (0, lib_1.loadConfig)();
     const openai = (0, lib_1.initOpenAI)();
@@ -9937,21 +9937,21 @@ const run = async () => {
     const originalCode = fs_1.default.readFileSync(fileToReview, "utf-8");
     console.log(`\n📂 Reviewing file: ${fileToReview}`);
     const reviewedContent = await (0, lib_1.reviewCode)(openai, fileToReview, originalCode, config);
-    const branchName = `tidybot/${path_1.default.basename(fileToReview)}-${Date.now()}`;
-    const repo = process.env.GITHUB_REPOSITORY;
-    const token = process.env.GITHUB_TOKEN;
-    const remoteUrl = `https://${token}@github.com/${repo}.git`;
-    console.log(remoteUrl);
-    git(`git checkout -b ${branchName}`);
+    // const branchName = `tidybot/${path.basename(fileToReview)}-${Date.now()}`;
+    // const repo = process.env.GITHUB_REPOSITORY;
+    // const token = process.env.GITHUB_TOKEN;
+    // const remoteUrl = `https://${token}@github.com/${repo}.git`;
+    // console.log(remoteUrl)
+    // git(`git checkout -b ${branchName}`);
     if (reviewedContent) {
         fs_1.default.writeFileSync(fileToReview, reviewedContent.trim());
-        git(`git config user.name "tidybot"`);
-        git(`git config user.email "tidybot@users.noreply.github.com"`);
-        git(`git remote set-url origin ${remoteUrl}`);
-        git(`git add ${fileToReview}`);
-        git(`git commit -m "style: tidybot review for ${path_1.default.basename(fileToReview)}"`);
-        git(`git push origin ${branchName}`);
-        git(`gh pr create --title "TidyBot Review: ${path_1.default.basename(fileToReview)}" --body "Automated refactor and style cleanup by TidyBot." --base main`);
+        // git(`git config user.name "tidybot"`);
+        // git(`git config user.email "tidybot@users.noreply.github.com"`);
+        // git(`git remote set-url origin ${remoteUrl}`);
+        // git(`git add ${fileToReview}`);
+        // git(`git commit -m "style: tidybot review for ${path.basename(fileToReview)}"`);
+        // git(`git push origin ${branchName}`);
+        // git(`gh pr create --title "TidyBot Review: ${path.basename(fileToReview)}" --body "Automated refactor and style cleanup by TidyBot." --base main`);
     }
     return;
 };
@@ -9965,14 +9965,6 @@ run();
 
 module.exports = eval("require")("encoding");
 
-
-/***/ }),
-
-/***/ 2081:
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("child_process");
 
 /***/ }),
 
