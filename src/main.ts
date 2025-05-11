@@ -34,12 +34,18 @@ const run = async (): Promise<void> => {
   const reviewedContent = await reviewCode(openai, fileToReview, originalCode, config);
 
   const branchName = `tidybot/${path.basename(fileToReview)}-${Date.now()}`;
+  const repo = process.env.GITHUB_REPOSITORY;
+  const token = process.env.GITHUB_TOKEN;
+  const remoteUrl = `https://${token}@github.com/${repo}.git`;
+
+  console.log(remoteUrl)
 
   git(`git checkout -b ${branchName}`);
   if (reviewedContent) {
     fs.writeFileSync(fileToReview, reviewedContent.trim());
     git(`git config user.name "tidybot"`);
     git(`git config user.email "tidybot@users.noreply.github.com"`);
+    git(`git remote set-url origin ${remoteUrl}`);
     git(`git add ${fileToReview}`);
     git(`git commit -m "style: tidybot review for ${path.basename(fileToReview)}"`);
     git(`git push origin ${branchName}`);

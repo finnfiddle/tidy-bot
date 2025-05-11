@@ -5,6 +5,9 @@ inputs:
   openai_api_key:
     description: "Your OpenAI API key"
     required: true
+  github_token:
+    description: "GitHub token for authentication"
+    required: true
 runs:
   using: "node20"
   main: "dist/index.js"
