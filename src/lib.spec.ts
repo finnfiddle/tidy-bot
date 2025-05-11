@@ -14,14 +14,14 @@ jest.mock("openai");
 describe("TidyBot Core Functions", () => {
   describe("loadConfig", () => {
     it("loads valid YAML config", () => {
-      fs.writeFileSync(".stylebot.yml", "srcDir: ./src\nextensions: ['.js']");
-      const config = loadConfig(".stylebot.yml");
+      fs.writeFileSync(".tidy-bot.yml", "srcDir: ./src\nextensions: ['.js']");
+      const config = loadConfig(".tidy-bot.yml");
       expect(config.srcDir).toBe("./src");
     });
 
     it("throws on invalid YAML", () => {
-      fs.writeFileSync(".stylebot.yml", "{ this: is: bad yaml }");
-      expect(() => loadConfig(".stylebot.yml")).toThrow("Failed to load config");
+      fs.writeFileSync(".tidy-bot.yml", "{ this: is: bad yaml }");
+      expect(() => loadConfig(".tidy-bot.yml")).toThrow("Failed to load config");
     });
   });
 

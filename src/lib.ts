@@ -12,12 +12,13 @@ export interface Config {
   customInstructions?: string;
 }
 
-export function loadConfig(configPath: string = ".stylebot.yml"): Config {
+export function loadConfig(configPath: string = ".tidy-bot.yml"): Config {
   try {
     const fileContents = fs.readFileSync(configPath, "utf8");
     return yaml.load(fileContents) as Config;
   } catch (e: unknown) {
-    throw new Error("Failed to load config");
+    console.error(e);
+    return {};
   }
 }
 
