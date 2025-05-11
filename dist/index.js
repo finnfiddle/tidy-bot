@@ -9840,13 +9840,14 @@ const fs_1 = __importDefault(__nccwpck_require__(7147));
 const path_1 = __importDefault(__nccwpck_require__(1017));
 const js_yaml_1 = __importDefault(__nccwpck_require__(1917));
 const openai_1 = __importDefault(__nccwpck_require__(47));
-function loadConfig(configPath = ".stylebot.yml") {
+function loadConfig(configPath = ".tidy-bot.yml") {
     try {
         const fileContents = fs_1.default.readFileSync(configPath, "utf8");
         return js_yaml_1.default.load(fileContents);
     }
     catch (e) {
-        throw new Error("Failed to load config");
+        console.error(e);
+        return {};
     }
 }
 exports.loadConfig = loadConfig;
