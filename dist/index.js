@@ -9938,11 +9938,16 @@ const run = async () => {
     console.log(`\n📂 Reviewing file: ${fileToReview}`);
     const reviewedContent = await (0, lib_1.reviewCode)(openai, fileToReview, originalCode, config);
     const branchName = `tidybot/${path_1.default.basename(fileToReview)}-${Date.now()}`;
+    const repo = process.env.GITHUB_REPOSITORY;
+    const token = process.env.GITHUB_TOKEN;
+    const remoteUrl = `https://${token}@github.com/${repo}.git`;
+    console.log(remoteUrl);
     git(`git checkout -b ${branchName}`);
     if (reviewedContent) {
         fs_1.default.writeFileSync(fileToReview, reviewedContent.trim());
         git(`git config user.name "tidybot"`);
         git(`git config user.email "tidybot@users.noreply.github.com"`);
+        git(`git remote set-url origin ${remoteUrl}`);
         git(`git add ${fileToReview}`);
         git(`git commit -m "style: tidybot review for ${path_1.default.basename(fileToReview)}"`);
         git(`git push origin ${branchName}`);
