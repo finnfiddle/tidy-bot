@@ -58,6 +58,8 @@ ${config.styleGuides?.map((g) => `- ${g}`).join("\n") || 'N/A'}
 Also apply the following custom instructions:
 ${config.customInstructions?.trim() || 'N/A'}
 
+Make sure you do not change the functionality of the code. If you find any issues, please point them out and suggest improvements via comments in the code. Do not alter the external APIs or imports.
+
 File path: ${filePath}
 
 \u0060\u0060\u0060${path.extname(filePath).slice(1)}
