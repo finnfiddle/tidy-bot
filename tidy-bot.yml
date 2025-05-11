@@ -1,0 +1,10 @@
+srcDir: "./src"
+
+extensions:
+  - ".ts"
+  - ".tsx"
+  - ".js"
+
+styleGuides:
+  - "Airbnb JavaScript/TypeScript style guide"
+  - "GitHub action/workflow best practices"

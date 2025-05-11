@@ -1,16 +1,13 @@
-name: 'Action Name'
-author: 'NickLiffen'
-description: 'Action Description'
+name: "TidyBot"
+description: "Daily code tidy-up using OpenAI and style guides"
+author: "your-username"
 inputs:
-  inputName:
-    description: 'Input Description'
+  openai_api_key:
+    description: "Your OpenAI API key"
     required: true
-outputs:
-  outputName:
-    description: 'Output Description'
 runs:
-  using: 'node20'
-  main: 'dist/index.js'
+  using: "node20"
+  main: "dist/index.js"
 branding:
-  icon: 'target'  
-  color: 'blue'
+  icon: "edit"
+  color: "blue"

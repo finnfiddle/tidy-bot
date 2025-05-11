@@ -1,0 +1,15 @@
+name: Run TidyBot
+
+on:
+  schedule:
+    - cron: '*/2 * * * *'
+  workflow_dispatch:
+
+jobs:
+  tidy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: finnfiddle/tidybot@v1
+        with:
+          openai_api_key: ${{ secrets.OPENAI_API_KEY }}
