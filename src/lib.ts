@@ -41,8 +41,8 @@ export function pickRandomFile(files: string[]): string {
 }
 
 export function initOpenAI(): OpenAI {
-  const apiKey = process.env["OPENAI_API_KEY"];
-  if (!apiKey) throw new Error("OPENAI_API_KEY environment variable not set.");
+  const apiKey = process.env['INPUT_OPENAI_API_KEY'];
+  if (!apiKey) throw new Error("openai_api_key input not set.");
   return new OpenAI({ apiKey });
 }
 
